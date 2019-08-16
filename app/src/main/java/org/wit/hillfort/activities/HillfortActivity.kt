@@ -16,6 +16,7 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
 
   var hillfort = HillfortModel()
   lateinit var app:MainApp
+  var edit = false
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
@@ -24,26 +25,29 @@ class HillfortActivity : AppCompatActivity(), AnkoLogger {
     toolbarAdd.title = title
     setSupportActionBar(toolbarAdd)
 
+
     if (intent.hasExtra("hillfort_edit")) {
+      edit = true
       hillfort = intent.extras.getParcelable<HillfortModel>("hillfort_edit")
       hillfortTitle.setText(hillfort.title)
       description.setText(hillfort.description)
+      btnAdd.setText(R.string.save_hillfort)
     }
     btnAdd.setOnClickListener() {
       hillfort.title = hillfortTitle.text.toString()
       hillfort.description = description.text.toString()
-
-
-      if (hillfort.title.isNotEmpty()) {
-        app.hillforts.create(hillfort.copy())
-        info("Add Button Pressed: $hillfortTitle")
-       // app.hillforts.findAll().forEach{info ("Add Button Pressed:  ${it}")}
-        setResult(AppCompatActivity.RESULT_OK)
-        finish()
+      if (hillfort.title.isEmpty()) {
+        toast(R.string.enter_hillfort_title)
+      } else {
+        if (edit) {
+          app.hillforts.update(hillfort.copy())
+        } else {
+          app.hillforts.create(hillfort.copy())
+        }
       }
-      else {
-        toast("Please Enter a title")
-      }
+      info("add Button Pressed: $hillfortTitle")
+      setResult(AppCompatActivity.RESULT_OK)
+      finish()
     }
   }
   override fun onCreateOptionsMenu(menu: Menu?): Boolean {

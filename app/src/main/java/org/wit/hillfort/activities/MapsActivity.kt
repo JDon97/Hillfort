@@ -15,7 +15,7 @@ import com.google.android.gms.maps.model.MarkerOptions
 import org.wit.hillfort.R
 import org.wit.hillfort.models.Location
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerDragListener {
+class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarkerDragListener, GoogleMap.OnMarkerClickListener {
 
   private lateinit var map: GoogleMap
   var location = Location()
@@ -29,10 +29,12 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     mapFragment.getMapAsync(this)
   }
 
+
   override fun onMapReady(googleMap: GoogleMap) {
     map = googleMap
     val loc = LatLng(location.lat, location.lng)
     map.setOnMarkerDragListener(this)
+    map.setOnMarkerClickListener(this)
     val options = MarkerOptions()
         .title("Hillfort")
         .snippet("GPS : " + loc.toString())
@@ -54,6 +56,13 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     location.lng = marker.position.longitude
     location.zoom = map.cameraPosition.zoom
   }
+  override fun onMarkerClick(marker: Marker): Boolean {
+    val loc = LatLng(location.lat, location.lng)
+    marker.setSnippet("GPS : " + loc.toString())
+    return false
+  }
+
+
 
   override fun onBackPressed() {
     val resultIntent = Intent()
@@ -62,4 +71,6 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback, GoogleMap.OnMarker
     finish()
     super.onBackPressed()
   }
+
+
 }

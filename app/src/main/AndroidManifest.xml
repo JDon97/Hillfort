@@ -14,7 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".views.hillfort.HillfortView" />
-        <activity android:name=".views.hillfortlist.HillfortListView">
+        <activity android:name=".views.hillfortlist.HillfortListView"/>
+        <activity android:name="org.wit.hillfort.activities.SplashScreenActivity"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

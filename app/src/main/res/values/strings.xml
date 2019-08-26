@@ -14,4 +14,5 @@
     <string name="title_activity_maps">Map</string>
     <string name="menu_deleteHillfort">Delete</string>
     <string name="title_activity_hillfort_maps">Map of Hillforts</string>
+    <string name="menu_saveHillfort">Save</string>
 </resources>

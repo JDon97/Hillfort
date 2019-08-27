@@ -6,13 +6,15 @@ import android.view.Menu
 import android.view.MenuItem
 import com.google.android.gms.maps.GoogleMap
 import kotlinx.android.synthetic.main.activity_hillfort.*
+import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 import org.wit.hillfort.R
 import org.wit.hillfort.helpers.readImageFromPath
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.views.BaseView
-import org.wit.hillfort.views.hillfort.HillfortPresenter
+
+
 
 class HillfortView : BaseView(), AnkoLogger {
 
@@ -22,9 +24,10 @@ class HillfortView : BaseView(), AnkoLogger {
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
+    super.init(toolbarMain, true)
     setContentView(R.layout.activity_hillfort)
 
-    init(toolbarAdd)
+
 
     presenter = initPresenter (HillfortPresenter(this)) as HillfortPresenter
 

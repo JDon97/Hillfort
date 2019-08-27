@@ -3,8 +3,11 @@ package org.wit.hillfort.views.map
 import android.os.Bundle
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.Marker
+import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import org.wit.hillfort.R
+
 import kotlinx.android.synthetic.main.activity_hillfort_maps.*
+
 import kotlinx.android.synthetic.main.content_hillfort_maps.*
 import org.wit.hillfort.helpers.readImageFromPath
 import org.wit.hillfort.models.HillfortModel
@@ -18,7 +21,7 @@ class HillfortMapView : BaseView(), GoogleMap.OnMarkerClickListener {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_hillfort_maps)
-    super.init(toolbarMaps)
+    super.init(toolbarMain, true)
 
     presenter = initPresenter (HillfortMapPresenter(this)) as HillfortMapPresenter
 

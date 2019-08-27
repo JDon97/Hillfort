@@ -3,9 +3,10 @@ package org.wit.hillfort.activities
 import android.content.Intent
 import android.os.Bundle
 import android.os.Handler
-import android.support.v7.app.AppCompatActivity
+import androidx.appcompat.app.AppCompatActivity
 import org.wit.hillfort.R
 import org.wit.hillfort.views.hillfortlist.HillfortListView
+import org.wit.hillfort.views.login.LoginView
 
 class SplashScreenActivity : AppCompatActivity() {
   private var mDelayHandler: Handler? = null
@@ -14,7 +15,7 @@ class SplashScreenActivity : AppCompatActivity() {
   internal val mRunnable: Runnable = Runnable {
     if (!isFinishing) {
 
-      val intent = Intent(applicationContext, HillfortListView::class.java)
+      val intent = Intent(applicationContext, LoginView::class.java)
       startActivity(intent)
       finish()
     }

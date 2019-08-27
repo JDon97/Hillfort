@@ -3,7 +3,7 @@ package org.wit.hillfort.views.hillfortlist
 
 import android.content.Intent
 import android.os.Bundle
-import android.support.v7.widget.LinearLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import android.view.*
 import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import org.wit.hillfort.R
@@ -17,11 +17,11 @@ class HillfortListView :  BaseView(), HillfortListener {
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
     setContentView(R.layout.activity_hillfort_list)
-    init(toolbarMain)
+    init(toolbarMain, false)
 
     presenter = initPresenter(HillfortListPresenter(this)) as HillfortListPresenter
 
-    val layoutManager = LinearLayoutManager(this)
+    val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
     recyclerView.layoutManager = layoutManager
     presenter.loadHillforts()
   }

@@ -4,56 +4,45 @@ import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
-import com.google.android.gms.maps.GoogleMap
+import com.bumptech.glide.Glide
 import kotlinx.android.synthetic.main.activity_hillfort.*
-import kotlinx.android.synthetic.main.activity_hillfort_list.*
 import org.jetbrains.anko.AnkoLogger
 import org.jetbrains.anko.toast
 import org.wit.hillfort.R
-import org.wit.hillfort.helpers.readImageFromPath
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.views.BaseView
-
-
 
 class HillfortView : BaseView(), AnkoLogger {
 
   lateinit var presenter: HillfortPresenter
   var hillfort = HillfortModel()
-  lateinit var map: GoogleMap
 
   override fun onCreate(savedInstanceState: Bundle?) {
     super.onCreate(savedInstanceState)
-    super.init(toolbarMain, true)
     setContentView(R.layout.activity_hillfort)
 
-
+    init(toolbarAdd, true)
 
     presenter = initPresenter (HillfortPresenter(this)) as HillfortPresenter
 
-    chooseImage.setOnClickListener { presenter.doSelectImage() }
-
+    mapView.onCreate(savedInstanceState);
     mapView.getMapAsync {
       presenter.doConfigureMap(it)
       it.setOnMapClickListener { presenter.doSetLocation() }
     }
 
-    mapView.onCreate(savedInstanceState);
-    mapView.getMapAsync {
-      map = it
-      presenter.doConfigureMap(map)
-    }
+    chooseImage.setOnClickListener { presenter.doSelectImage() }
   }
 
   override fun showHillfort(hillfort: HillfortModel) {
     hillfortTitle.setText(hillfort.title)
     description.setText(hillfort.description)
-    hillfortImage.setImageBitmap(readImageFromPath(this, hillfort.image))
+    Glide.with(this).load(hillfort.image).into(hillfortImage);
     if (hillfort.image != null) {
       chooseImage.setText(R.string.change_hillfort_image)
     }
-    lat.setText("%.6f".format(hillfort.lat))
-    lng.setText("%.6f".format(hillfort.lng))
+    lat.setText("%.6f".format(hillfort.location.lat))
+    lng.setText("%.6f".format(hillfort.location.lng))
   }
 
   override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -114,3 +103,4 @@ class HillfortView : BaseView(), AnkoLogger {
     mapView.onSaveInstanceState(outState)
   }
 }
+

@@ -1,5 +1,8 @@
 package org.wit.hillfort.views.hillfortlist
 
+import com.google.firebase.auth.FirebaseAuth
+import kotlinx.coroutines.experimental.android.UI
+import kotlinx.coroutines.experimental.async
 import org.wit.hillfort.models.HillfortModel
 import org.wit.hillfort.views.BasePresenter
 import org.wit.hillfort.views.BaseView
@@ -20,6 +23,13 @@ class HillfortListPresenter(view: BaseView) : BasePresenter(view) {
   }
 
   fun loadHillforts() {
-    view?.showHillforts(app.hillforts.findAll())
+    async(UI) {
+      view?.showHillforts(app.hillforts.findAll())
+    }
+  }
+
+  fun doLogout() {
+    FirebaseAuth.getInstance().signOut()
+    view?.navigateTo(VIEW.LOGIN)
   }
 }

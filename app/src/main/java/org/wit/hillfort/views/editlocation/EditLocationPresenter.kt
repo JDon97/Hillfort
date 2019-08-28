@@ -1,8 +1,6 @@
 package org.wit.hillfort.views.editlocation
 
 import android.content.Intent
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.model.LatLng
@@ -15,7 +13,6 @@ import org.wit.hillfort.views.BaseView
 class EditLocationPresenter(view: BaseView) : BasePresenter(view) {
 
   var location = Location()
-
 
   init {
     location = view.intent.extras.getParcelable<Location>("location")

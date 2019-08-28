@@ -1,6 +1,5 @@
 package org.wit.hillfort.views.hillfortlist
 
-
 import android.content.Intent
 import android.os.Bundle
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -21,7 +20,7 @@ class HillfortListView :  BaseView(), HillfortListener {
 
     presenter = initPresenter(HillfortListPresenter(this)) as HillfortListPresenter
 
-    val layoutManager = androidx.recyclerview.widget.LinearLayoutManager(this)
+    val layoutManager = LinearLayoutManager(this)
     recyclerView.layoutManager = layoutManager
     presenter.loadHillforts()
   }
@@ -40,6 +39,7 @@ class HillfortListView :  BaseView(), HillfortListener {
     when (item?.itemId) {
       R.id.item_add -> presenter.doAddHillfort()
       R.id.item_map -> presenter.doShowHillfortsMap()
+      R.id.item_logout ->presenter.doLogout()
     }
     return super.onOptionsItemSelected(item)
   }
